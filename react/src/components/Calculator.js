@@ -8,29 +8,64 @@ const Calculator = () => {
   const [operation, setOperation] = useState('');
   const [previousValue, setPreviousValue] = useState('');
   const [error, setError] = useState('');
+  const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
 
   const handleNumberClick = (value) => {
     if (error) {
       setError('');
+      setDisplay('0');
+      setCurrentValue('');
+      setPreviousValue('');
+      setOperation('');
+      setWaitingForSecondOperand(false);
     }
-    if (display === '0') {
+
+    if (value === '.' && currentValue.includes('.')) {
+      return;
+    }
+
+    if (display === '0' && value !== '.') {
       setDisplay(value);
       setCurrentValue(value);
     } else {
-      setDisplay(display + value);
-      setCurrentValue(currentValue + value);
+      if (waitingForSecondOperand) {
+        setDisplay(previousValue + ' ' + operation + ' ' + value);
+        setCurrentValue(value);
+        setWaitingForSecondOperand(false);
+      } else {
+        setDisplay(display + value);
+        setCurrentValue(currentValue + value);
+      }
     }
   };
 
   const handleOperationClick = (op) => {
     if (error) {
       setError('');
+      setDisplay('0');
+      setCurrentValue('');
+      setPreviousValue('');
+      setOperation('');
+      setWaitingForSecondOperand(false);
     }
-    if (currentValue) {
+
+    if (!currentValue) {
+      if (previousValue) {
+        setOperation(op);
+        setDisplay(previousValue + ' ' + op + ' ');
+        setWaitingForSecondOperand(true);
+      }
+      return;
+    }
+
+    if (previousValue && operation && currentValue) {
+      calculateResult(op);
+    } else {
       setPreviousValue(currentValue);
       setCurrentValue('');
       setOperation(op);
       setDisplay(display + ' ' + op + ' ');
+      setWaitingForSecondOperand(true);
     }
   };
 
@@ -40,10 +75,16 @@ const Calculator = () => {
     setOperation('');
     setPreviousValue('');
     setError('');
+    setWaitingForSecondOperand(false);
   };
 
-  const calculateResult = () => {
+  const calculateResult = (nextOperation = '') => {
     if (!previousValue || !currentValue || !operation) {
+      if (previousValue && !currentValue && nextOperation) {
+        setOperation(nextOperation);
+        setDisplay(previousValue + ' ' + nextOperation + ' ');
+        setWaitingForSecondOperand(true);
+      }
       return;
     }
 
@@ -64,15 +105,20 @@ const Calculator = () => {
         setCurrentValue('');
         setPreviousValue('');
         setOperation('');
+        setWaitingForSecondOperand(false);
         return;
       }
       result = prev / curr;
     }
 
     setDisplay(result.toString());
-    setCurrentValue(result.toString());
-    setPreviousValue('');
-    setOperation('');
+    setCurrentValue('');
+    setPreviousValue(result.toString());
+    setOperation(nextOperation);
+    setWaitingForSecondOperand(!!nextOperation);
+    if (nextOperation) {
+      setDisplay(result.toString() + ' ' + nextOperation + ' ');
+    }
   };
 
   return (
