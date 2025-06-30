@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import React from './Calculator';
 import ErrorBoundary from './ErrorBoundary';
 import './App.css';
 
@@ -7,11 +7,7 @@ function App() {
     <ErrorBoundary>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Шаблон React успешно развернут, <br />
-            Ждите обновлений от AI :)
-          </p>
+          <React />
         </header>
       </div>
     </ErrorBoundary>
