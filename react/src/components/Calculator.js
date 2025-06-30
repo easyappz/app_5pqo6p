@@ -147,7 +147,7 @@ const Calculator = () => {
                 color={btn === '/' ? 'secondary' : 'default'}
                 fullWidth
                 disableElevation
-                className="calculator-button"
+                className={`calculator-button ${btn === '/' ? 'operation' : ''}`}
                 onClick={() =>
                   btn === '/' ? handleOperationClick(btn) : handleNumberClick(btn)
                 }
@@ -163,7 +163,7 @@ const Calculator = () => {
                 color={btn === '*' ? 'secondary' : 'default'}
                 fullWidth
                 disableElevation
-                className="calculator-button"
+                className={`calculator-button ${btn === '*' ? 'operation' : ''}`}
                 onClick={() =>
                   btn === '*' ? handleOperationClick(btn) : handleNumberClick(btn)
                 }
@@ -179,7 +179,7 @@ const Calculator = () => {
                 color={btn === '-' ? 'secondary' : 'default'}
                 fullWidth
                 disableElevation
-                className="calculator-button"
+                className={`calculator-button ${btn === '-' ? 'operation' : ''}`}
                 onClick={() =>
                   btn === '-' ? handleOperationClick(btn) : handleNumberClick(btn)
                 }
@@ -195,7 +195,7 @@ const Calculator = () => {
                 color={btn === '+' ? 'secondary' : btn === '=' ? 'primary' : 'default'}
                 fullWidth
                 disableElevation
-                className="calculator-button"
+                className={`calculator-button ${btn === '+' ? 'operation' : btn === '=' ? 'equal' : ''}`}
                 onClick={() => {
                   if (btn === '=') calculateResult();
                   else if (btn === '+') handleOperationClick(btn);
