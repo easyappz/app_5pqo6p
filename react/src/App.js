@@ -1,4 +1,4 @@
-import React from './Calculator';
+import Calculator from './components/Calculator';
 import ErrorBoundary from './ErrorBoundary';
 import './App.css';
 
@@ -7,7 +7,7 @@ function App() {
     <ErrorBoundary>
       <div className="App">
         <header className="App-header">
-          <React />
+          <Calculator />
         </header>
       </div>
     </ErrorBoundary>

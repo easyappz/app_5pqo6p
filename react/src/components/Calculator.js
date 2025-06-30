@@ -85,7 +85,7 @@ const Calculator = () => {
           fullWidth
           className="calculator-display"
           InputProps={{
-            style: { textAlign: 'right', fontSize: '1.5rem' }
+            style: { textAlign: 'right', fontSize: '1.5rem', fontWeight: '500' }
           }}
         />
         {error && (
@@ -93,13 +93,14 @@ const Calculator = () => {
             {error}
           </Typography>
         )}
-        <Grid container spacing={1} className="calculator-buttons">
+        <Grid container spacing={1.5} className="calculator-buttons">
           {['7', '8', '9', '/'].map((btn) => (
             <Grid item xs={3} key={btn}>
               <Button
                 variant="contained"
                 color={btn === '/' ? 'secondary' : 'default'}
                 fullWidth
+                disableElevation
                 className="calculator-button"
                 onClick={() =>
                   btn === '/' ? handleOperationClick(btn) : handleNumberClick(btn)
@@ -115,6 +116,7 @@ const Calculator = () => {
                 variant="contained"
                 color={btn === '*' ? 'secondary' : 'default'}
                 fullWidth
+                disableElevation
                 className="calculator-button"
                 onClick={() =>
                   btn === '*' ? handleOperationClick(btn) : handleNumberClick(btn)
@@ -130,6 +132,7 @@ const Calculator = () => {
                 variant="contained"
                 color={btn === '-' ? 'secondary' : 'default'}
                 fullWidth
+                disableElevation
                 className="calculator-button"
                 onClick={() =>
                   btn === '-' ? handleOperationClick(btn) : handleNumberClick(btn)
@@ -145,6 +148,7 @@ const Calculator = () => {
                 variant="contained"
                 color={btn === '+' ? 'secondary' : btn === '=' ? 'primary' : 'default'}
                 fullWidth
+                disableElevation
                 className="calculator-button"
                 onClick={() => {
                   if (btn === '=') calculateResult();
@@ -164,7 +168,7 @@ const Calculator = () => {
               className="calculator-clear"
               onClick={handleClear}
             >
-              Clear
+              C
             </Button>
           </Grid>
         </Grid>
